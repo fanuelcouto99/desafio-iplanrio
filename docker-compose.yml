@@ -1,0 +1,73 @@
+name: desafio-iplanrio-fanuel
+services: 
+  mysql: 
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: root-teste
+      MYSQL_DATABASE: corridas
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+        test: [ "CMD-SHELL", "mysqladmin ping -h localhost -proot-teste" ]
+        interval: 5s
+        timeout: 5s
+        retries: 20
+  redis: 
+    image: redis:7-alpine
+  mongo:
+    image: mongo:latest
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    ports:
+      - 5672:5672
+      - 15672:15672
+      - 15692:15692
+    volumes:
+      - ./observability/enabled_plugins:/etc/rabbitmq/enabled_plugins
+    healthcheck:
+      test: [ "CMD-SHELL", "rabbitmq-diagnostics -q ping" ]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    environment:
+      COLLECTOR_OTLP_ENABLED: true
+    ports:
+      - 16686:16686
+      - 4318:4318
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - 9090:9090
+    volumes:
+      - ./observability/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./observability/prometheus/alerts.yml:/etc/prometheus/alerts.yml
+  api: 
+    build: ./api
+    ports: ['3000:3000']
+    env_file: ./api/.env.example
+    depends_on:
+      mysql: {condition: service_healthy}
+      rabbitmq: {condition: service_healthy}
+    networks:
+      - app-network
+  worker: 
+    build: ./worker
+    env_file: ./worker/.env.example
+    depends_on:
+      rabbitmq: {condition: service_healthy}
+    networks:
+      - app-network
+  ui: 
+    build: ./ui
+    ports:
+      - 5173:80
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
