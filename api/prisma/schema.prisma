@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+enum Status {
+  SOLICITADA
+  ACEITA
+  EM_ANDAMENTO
+  FINALIZADA
+}
+
+model Corrida {
+  id           String   @id @default(uuid())
+  passageiroId String
+  motoristaId  String
+  origem       String
+  destino      String
+  status       Status   @default(SOLICITADA)
+  version      Int      @default(1)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([passageiroId, motoristaId, status])
+  @@map("corridas")
+}
+
+model Idempotecia {
+  id          String   @id @default(uuid())
+  chave       String
+  usuarioId   String
+  requestHash String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([chave, usuarioId])
+  @@map("idempotecia")
+}
