@@ -16,8 +16,12 @@ services:
         retries: 20
   redis: 
     image: redis:7-alpine
+    ports:
+      - 6379:6379
   mongo:
     image: mongo:latest
+    ports:
+      - 27017:27017
   rabbitmq:
     image: rabbitmq:3.13-management
     ports:
@@ -29,8 +33,8 @@ services:
     healthcheck:
       test: [ "CMD-SHELL", "rabbitmq-diagnostics -q ping" ]
       interval: 5s
-      timeout: 5s
-      retries: 20
+      timeout: 10s
+      retries: 10
   jaeger:
     image: jaegertracing/all-in-one:latest
     environment:
@@ -43,8 +47,8 @@ services:
     ports:
       - 9090:9090
     volumes:
-      - ./observability/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-      - ./observability/prometheus/alerts.yml:/etc/prometheus/alerts.yml
+       - ./observability/prometheus.yml:/etc/prometheus/prometheus.yml
+        - ./observability/alerts.yml:/etc/prometheus/alerts.yml
   api: 
     build: ./api
     ports: ['3000:3000']
@@ -52,22 +56,18 @@ services:
     depends_on:
       mysql: {condition: service_healthy}
       rabbitmq: {condition: service_healthy}
-    networks:
-      - app-network
+      redis: {condition: service_started}
   worker: 
     build: ./worker
     env_file: ./worker/.env.example
     depends_on:
-      rabbitmq: {condition: service_healthy}
-    networks:
-      - app-network
+      rabbitmq: { condition: service_healthy }
+      redis: { condition: service_started }
+      mongo: { condition: service_started }
   ui: 
     build: ./ui
     ports:
       - 5173:80
-networks:
-  app-network:
-    driver: bridge
 
 volumes:
   mysql_data:
