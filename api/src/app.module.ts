@@ -9,12 +9,12 @@ import { RedisModule } from './cache/redis.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true
+      isGlobal: true,
     }),
     PrismaModule,
     RedisModule,
     AuthModule,
-    CorridasModule
+    CorridasModule,
   ],
   controllers: [HealthController],
   providers: [],

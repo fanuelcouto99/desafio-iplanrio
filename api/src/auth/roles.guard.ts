@@ -1,17 +1,20 @@
-import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
-import { Reflector } from "@nestjs/core";
-import { Role } from "./auth-user";
+import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import { Reflector } from '@nestjs/core';
+import { AuthUser, Role } from './auth-user';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
-    constructor(private readonly reflector: Reflector) {}
+  constructor(private readonly reflector: Reflector) {}
 
-    canActivate(context: ExecutionContext): boolean {
-        const roles = this.reflector.get<Role[]>('roles', context.getHandler());
-        if(!roles) {
-            return true;
-        }
-        const {user} = context.switchToHttp().getRequest();
-        return roles.includes(user.role); // falha se o perfil do usuario logado for diferente dos roles permitidos => 403
+  canActivate(context: ExecutionContext): boolean {
+    const roles = this.reflector.get<Role[]>('roles', context.getHandler());
+    if (!roles) {
+      return true;
     }
-}   
+    const request = context.switchToHttp().getRequest<{ user?: AuthUser }>();
+    if (!request.user) {
+      return false;
+    }
+    return roles.includes(request.user.role);
+  }
+}
