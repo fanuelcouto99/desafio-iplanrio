@@ -1,6 +1,6 @@
 FROM node:22-slim AS build
 WORKDIR /app
-COPY package.json ./
+COPY package*.json ./
 RUN npm ci
 COPY . .
 ARG VITE_API_URL=http://localhost:3000
