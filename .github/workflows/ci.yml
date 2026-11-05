@@ -1,0 +1,90 @@
+name: ci
+on: 
+  push: 
+  pull_request:
+
+jobs:
+  api:
+    runs-on: ubuntu-latest
+    services:
+      mysql: 
+        image: mysql:8.4
+        env: 
+          MYSQL_ROOT_PASSWORD: root-teste
+          MYSQL_DATABASE: corridas_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost -proot-teste"
+          --health-interval=5s
+          --health-retries=20
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+      rabbitmq:
+        image: rabbitmq:3.13
+        ports:
+          - 5672:5672
+        options: >-
+          --health-cmd="rabbitmq-diagnostics -q ping"
+          --health-interval=10s
+          --health-retries=10
+    defaults:
+      run: 
+        working-directory: api
+    env:
+      DATABASE_URL: mysql://root:root-teste@localhost:3306/corridas_test
+      REDIS_URL: redis://localhost:6379
+      RABBITMQ_URL: amqp://localhost:5672
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+          cache-dependency-path: api/package-lock.json
+      - run: npm ci
+      - run: npx prisma generate
+      - run: npx prisma migrate deploy
+      - run: npm run lint:ci
+      - run: npm run test:e2e
+      - run: npm run build
+  worker:
+    runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+      mongodb:
+        image: mongo:latest
+        ports:
+          - 27017:27017
+    defaults:
+      run: 
+        working-directory: worker
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+          cache-dependency-path: worker/package-lock.json
+      - run: npm ci
+      - run: npm run lint:ci
+      - run: npm run test
+      - run: npm run build
+  build-images:
+    runs-on: ubuntu-latest
+    needs: [api, worker]
+    strategy:
+      matrix:
+        service: [api, worker]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx@v3
+      - uses: docker/build-push-action@v6
+        with:
+          context: ${{ matrix.service }}
+          push: true
