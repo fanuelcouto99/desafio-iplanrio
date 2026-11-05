@@ -21,6 +21,12 @@
 
 - 11:55: Realizei os teste solicitados no desafio manualmente via terminal, todos funcionando conforme pedido, resultados serão colocados no README.
 
+- 12:25: Realizei a compilação da api para o docker, porém deu erro: Error response from daemon: Ports are not available: exposing port TCP 0.0.0.0:3000 -> 0.0.0.0:0: listen tcp 0.0.0.0:3000: bind: address already in use, pois estava rodando o projeto localmente fora do docker, ao finalizar localmente o node, a compilação não teve erros.
+
+- 13:01: Acessando ao RabbitMQ para ver se havia funcionado os testes, entendi que o Exchage é a parte que recebe e roteia as mensagens, a Fila guarda essas mensagens para serem processadas, o Binding liga o exchange com a fila e por fim o Routing Key é quem define o destino que cada mensagem vai.
+
+- 14:22: Subi o conteiner do worker, localmente processou corretamente as mensagens que estavam na fila, o proximo passo agora é realizar os teste diretamente nos conteiners do docker
+
 
 
 
