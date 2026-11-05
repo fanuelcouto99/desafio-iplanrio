@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const API = import.meta.env.VITE_API_URL ?? 'http://localhost:3000';
 
@@ -8,6 +8,10 @@ interface Corrida {
   origem: string;
   destino: string
 };
+
+function authHeaders(token: string) {
+  return { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' };
+}
 
 export default function App() {
   const [token, setToken] = useState(localStorage.getItem('token') ?? '');
@@ -19,16 +23,16 @@ export default function App() {
   const [idAlvo, setIdAlvo] = useState('');
   const [msg, setMsg] = useState('');
 
-  const headers = {Authorization: `Bearer ${token}`, 'Content-Type': 'application/json'};
+  const headers = authHeaders(token);
 
-  async function carregar() {
-    const r = await fetch(`${API}/corridas`, { headers });
+  const carregar = useCallback(async () => {
+    const r = await fetch(`${API}/corridas`, { headers: authHeaders(token) });
     if (r.ok) {
       setCorridas(await r.json());
     } else {
       setMsg(`GET /corridas: ${r.status}`);
     }
-  };
+  }, [token]);
 
   async function solicitar() {
     const r = await fetch(`${API}/corridas`, { 
@@ -50,20 +54,27 @@ export default function App() {
     setMsg(`PATCH ${status} => ${r.status}`);
   };
 
-  // Lista do passageiro atualizada a cada 5s
+  // Lista do passageiro atualizada a cada 5s.
+  // A primeira busca vai para o próximo tick: setState fica no callback, não no corpo do efeito.
   useEffect(() => {
     localStorage.setItem('token', token);
-    if(!token) return;
-    carregar();
-    const t = setInterval(() => carregar(), 5000);
-    return () => clearInterval(t);
-  }, [token]);
+    if (!token) return;
+    const atualizar = () => {
+      void carregar();
+    };
+    const imediato = setTimeout(atualizar, 0);
+    const t = setInterval(atualizar, 5000);
+    return () => {
+      clearTimeout(imediato);
+      clearInterval(t);
+    };
+  }, [token, carregar]);
 
   // Acompanhar uma corrida pelo GET /corridas/:id
   useEffect(() => {
-    if(!seguindo) return;
+    if (!seguindo) return;
     const t = setInterval(async () => {
-      const r = await fetch(`${API}/corridas/${seguindo}`, { headers });
+      const r = await fetch(`${API}/corridas/${seguindo}`, { headers: authHeaders(token) });
       if (r.ok) {
         setStatusAoVivo((await r.json()).status);
       }
