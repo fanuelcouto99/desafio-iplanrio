@@ -13,4 +13,10 @@
 ## 05-11-2026
 - 09:28: Decidi deixar a chave do cache no Redis como "corrida:<id>", para facilitar o entendimento e também o uso da chave na aplicação.
 
+- 09:37: Configurei o publicador de eventos no RabbitMQ (eventos.service). Escolhi uma exchange topic com fila durável e DLX/DLQ, e decidi declarar a topologia na própria API, e não só no worker: sem fila ligada, a exchange descarta a mensagem, então um evento publicado antes de o worker subir se perderia.
+
+- 10:11: Ao subir a API apareceu `getaddrinfo ENOTFOUND rabbitmq`. A API rodava no meu terminal, fora do Docker, mas o .env usava o nome do serviço (rabbitmq), que só existe dentro da rede do compose. Troquei para localhost no api/.env, e o .env.example continua com os nomes de serviço para quando a API rodar no contêiner.
+
+
+
 
