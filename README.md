@@ -22,8 +22,8 @@ motoristas alteram o status e o sistema acompanha o estado em tempo quase real.
 ## Como subir (só precisa de Docker)
 
 ```bash
-cd [PASTA_DESEJADA]
 git clone https://github.com/fanuelcouto99/desafio-iplanrio.git
+cd desafio-iplanrio
 docker compose up -d --build
 docker compose ps   # aguarde os serviços ficarem Up/healthy
 ```
