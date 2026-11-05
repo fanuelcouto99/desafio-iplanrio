@@ -3,6 +3,7 @@ import { ConfigService } from "@nestjs/config";
 import amqp from "amqplib";
 import { randomUUID } from "node:crypto";
 import { getCorrelationId } from "../common/correlations";
+import { Logger } from '@nestjs/common';
 
 type Connection = Awaited<ReturnType<typeof amqp.connect>>;
 
@@ -10,8 +11,11 @@ type Connection = Awaited<ReturnType<typeof amqp.connect>>;
 export class EventosService implements OnModuleInit, OnModuleDestroy {
   private connection!: Connection;
   private channel!: amqp.ConfirmChannel;
+  private logger: Logger;
 
-  constructor(private config: ConfigService) {}
+  constructor(private config: ConfigService) {
+    this.logger = new Logger(EventosService.name);
+  }
 
   async onModuleInit() {
     this.connection = await amqp.connect(this.config.getOrThrow<string>("RABBITMQ_URL"));
@@ -26,6 +30,8 @@ export class EventosService implements OnModuleInit, OnModuleDestroy {
         'x-dead-letter-exchange': 'corridas.dlx',
     }});
     await this.channel.bindQueue('corridas.worker', 'corridas.events', 'corrida.*');
+
+    this.logger.log('RabbitMQ conectado e topologia declarada');
   }
 
   async publicar(tipo: 'corrida.criada' | 'corrida.status_alterado', corrida: unknown) {
