@@ -27,6 +27,8 @@
 
 - 14:22: Subi o conteiner do worker, localmente processou corretamente as mensagens que estavam na fila, o proximo passo agora é realizar os teste diretamente nos conteiners do docker
 
+- 14:59: Ao realizar os testes automatizados, tive erro "Module <rootDir>/test/setup-env.ts in the setupFiles option was not found.", Vi que a configuração do arquivo env para o teste estava com o caminho errado, depois de acerta, o teste funcionou.
+
 
 
 
