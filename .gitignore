@@ -1,4 +1,9 @@
 api/node_modules
+worker/node_modules
+worker/dist
+worker/.env
+api/.env
+api/dist
 
 # Tokens
 api/tokens.local.txt
