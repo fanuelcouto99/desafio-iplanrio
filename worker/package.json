@@ -7,6 +7,7 @@
     "build": "tsc",
     "start": "node dist/main.js",
     "lint": "tsc --noEmit",
+    "lint:ci": "eslint src test",
     "test": "vitest run"
   },
   "keywords": [],
