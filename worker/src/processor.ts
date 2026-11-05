@@ -18,7 +18,7 @@ export interface EventoCorrida {
     ocorridoEm: string;
     corrida: {
         id: string;
-        versao: number;
+        version: number;
         [campo: string]: unknown;
     }
 }
@@ -30,7 +30,7 @@ export async function processarEvento(evt: EventoCorrida, correlationId: string 
         1, 
         `corrida:${evt.corrida.id}`,
         JSON.stringify(evt.corrida),
-        String(evt.corrida.versao),
+        String(evt.corrida.version),
     );
     const cacheAtualizado = r === 1;
 
