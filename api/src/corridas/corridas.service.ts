@@ -197,8 +197,7 @@ export class CorridasService {
     } catch (error: unknown) {
       const motivo = error instanceof Error ? error : new Error(String(error));
       this.logger.error(
-        { err: motivo, tipo },
-        'Falha ao publicar evento: Corrida já gravada',
+        `falha ao publicar ${tipo}: ${String(error)}`,
       );
       throw motivo;
     }

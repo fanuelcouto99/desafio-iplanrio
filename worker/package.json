@@ -14,6 +14,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@opentelemetry/auto-instrumentations-node": "^0.81.2",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.223.0",
+    "@opentelemetry/sdk-node": "^0.223.0",
     "amqplib": "^2.2.1",
     "ioredis": "^6.0.0",
     "mongodb": "^7.8.0",

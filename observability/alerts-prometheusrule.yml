@@ -1,0 +1,28 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: corridas
+spec:
+  groups:
+    - name: corridas
+      rules:
+        - alert: ApiTaxaDeErros5xxAlta
+          expr: |
+            sum(rate(http_requests_total{status=~"5.."}[5m]))
+            /
+            sum(rate(http_requests_total[5m])) > 0.05
+            and sum(rate(http_requests_total[5m])) > 0.1
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: Mais de 5% das requisições da API estão falhando
+            description: Passageiros e motoristas estão recebendo erro. Veja os logs da API pelo correlation_id.
+        - alert: FilaCorridasAcumulando
+          expr: rabbitmq_queue_messages_ready{queue="corridas.worker"} > 100
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: A fila do worker está acumulando mensagens
+            description: O worker está parado ou lento; o status que o usuário lê (cache) fica defasado.

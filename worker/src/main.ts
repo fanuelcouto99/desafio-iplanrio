@@ -1,3 +1,4 @@
+import './tracing';
 import Redis from "ioredis";
 import { config } from "./config";
 import { MongoClient } from "mongodb";

@@ -30,6 +30,7 @@ services:
       - 15692:15692
     volumes:
       - ./observability/enabled_plugins:/etc/rabbitmq/enabled_plugins
+      - ./observability/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
     healthcheck:
       test: [ "CMD-SHELL", "rabbitmq-diagnostics -q ping" ]
       interval: 5s
@@ -53,6 +54,8 @@ services:
     build: ./api
     ports: ['3000:3000']
     env_file: ./api/.env.example
+    environment:
+      DATABASE_URL: mysql://root:root-teste@mysql:3306/corridas
     depends_on:
       mysql: {condition: service_healthy}
       rabbitmq: {condition: service_healthy}
