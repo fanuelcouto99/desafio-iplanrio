@@ -29,6 +29,16 @@
 
 - 14:59: Ao realizar os testes automatizados, tive erro "Module <rootDir>/test/setup-env.ts in the setupFiles option was not found.", Vi que a configuração do arquivo env para o teste estava com o caminho errado, depois de acerta, o teste funcionou.
 
+- 15:28: Actions quebrou no processo do Worker, por não encontrar o script "lint:ci" no package.json, removido essa parte do ci.yml
+
+- 15:45: Novamente quebrou o processo de CI no worker, devido a ter um comando para rodar teste, porém como o worker não tem teste automatizado, removi essa linha
+
+- 15:48: Erro novamente só que dessa vez, foi no processo para criar a imagem do worker: docker/setup-buildx. Corrigir para o comando correto: docker/build-push-action@v6
+
+- 16:25: Finalizei a tela do projeto para realizar os teste, todos funcionando corretamente
+
+- 17:42: Finalize a implatação da observabilidade da aplicação com o Jaeger
+
 
 
 
