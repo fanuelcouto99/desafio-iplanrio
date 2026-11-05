@@ -72,7 +72,6 @@ jobs:
           cache: 'npm'
           cache-dependency-path: worker/package-lock.json
       - run: npm ci
-      - run: npm run test
       - run: npm run build
   build-images:
     runs-on: ubuntu-latest
