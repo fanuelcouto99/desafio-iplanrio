@@ -45,7 +45,7 @@ export { Prisma }
  */
 export type Corrida = Prisma.CorridaModel
 /**
- * Model Idempotecia
+ * Model IdempotencyKey
  * 
  */
-export type Idempotecia = Prisma.IdempoteciaModel
+export type IdempotencyKey = Prisma.IdempotencyKeyModel

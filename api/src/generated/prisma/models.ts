@@ -9,5 +9,5 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/Corrida.js'
-export type * from './models/Idempotecia.js'
+export type * from './models/IdempotencyKey.js'
 export type * from './commonInputTypes.js'

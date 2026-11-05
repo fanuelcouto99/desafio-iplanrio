@@ -398,7 +398,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   Corrida: 'Corrida',
-  Idempotecia: 'Idempotecia'
+  IdempotencyKey: 'IdempotencyKey'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -414,7 +414,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "corrida" | "idempotecia"
+    modelProps: "corrida" | "idempotencyKey"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -484,69 +484,69 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    Idempotecia: {
-      payload: Prisma.$IdempoteciaPayload<ExtArgs>
-      fields: Prisma.IdempoteciaFieldRefs
+    IdempotencyKey: {
+      payload: Prisma.$IdempotencyKeyPayload<ExtArgs>
+      fields: Prisma.IdempotencyKeyFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.IdempoteciaFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$IdempoteciaPayload> | null
+          args: Prisma.IdempotencyKeyFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IdempotencyKeyPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.IdempoteciaFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$IdempoteciaPayload>
+          args: Prisma.IdempotencyKeyFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IdempotencyKeyPayload>
         }
         findFirst: {
-          args: Prisma.IdempoteciaFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$IdempoteciaPayload> | null
+          args: Prisma.IdempotencyKeyFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IdempotencyKeyPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.IdempoteciaFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$IdempoteciaPayload>
+          args: Prisma.IdempotencyKeyFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IdempotencyKeyPayload>
         }
         findMany: {
-          args: Prisma.IdempoteciaFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$IdempoteciaPayload>[]
+          args: Prisma.IdempotencyKeyFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IdempotencyKeyPayload>[]
         }
         create: {
-          args: Prisma.IdempoteciaCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$IdempoteciaPayload>
+          args: Prisma.IdempotencyKeyCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IdempotencyKeyPayload>
         }
         createMany: {
-          args: Prisma.IdempoteciaCreateManyArgs<ExtArgs>
+          args: Prisma.IdempotencyKeyCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         delete: {
-          args: Prisma.IdempoteciaDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$IdempoteciaPayload>
+          args: Prisma.IdempotencyKeyDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IdempotencyKeyPayload>
         }
         update: {
-          args: Prisma.IdempoteciaUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$IdempoteciaPayload>
+          args: Prisma.IdempotencyKeyUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IdempotencyKeyPayload>
         }
         deleteMany: {
-          args: Prisma.IdempoteciaDeleteManyArgs<ExtArgs>
+          args: Prisma.IdempotencyKeyDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.IdempoteciaUpdateManyArgs<ExtArgs>
+          args: Prisma.IdempotencyKeyUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         upsert: {
-          args: Prisma.IdempoteciaUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$IdempoteciaPayload>
+          args: Prisma.IdempotencyKeyUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$IdempotencyKeyPayload>
         }
         aggregate: {
-          args: Prisma.IdempoteciaAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateIdempotecia>
+          args: Prisma.IdempotencyKeyAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateIdempotencyKey>
         }
         groupBy: {
-          args: Prisma.IdempoteciaGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.IdempoteciaGroupByOutputType>[]
+          args: Prisma.IdempotencyKeyGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IdempotencyKeyGroupByOutputType>[]
         }
         count: {
-          args: Prisma.IdempoteciaCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.IdempoteciaCountAggregateOutputType> | number
+          args: Prisma.IdempotencyKeyCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.IdempotencyKeyCountAggregateOutputType> | number
         }
       }
     }
@@ -604,16 +604,16 @@ export const CorridaScalarFieldEnum = {
 export type CorridaScalarFieldEnum = (typeof CorridaScalarFieldEnum)[keyof typeof CorridaScalarFieldEnum]
 
 
-export const IdempoteciaScalarFieldEnum = {
+export const IdempotencyKeyScalarFieldEnum = {
   id: 'id',
-  chave: 'chave',
-  usuarioId: 'usuarioId',
+  key: 'key',
+  userId: 'userId',
   requestHash: 'requestHash',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  corridaId: 'corridaId',
+  createdAt: 'createdAt'
 } as const
 
-export type IdempoteciaScalarFieldEnum = (typeof IdempoteciaScalarFieldEnum)[keyof typeof IdempoteciaScalarFieldEnum]
+export type IdempotencyKeyScalarFieldEnum = (typeof IdempotencyKeyScalarFieldEnum)[keyof typeof IdempotencyKeyScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -622,6 +622,14 @@ export const SortOrder = {
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
 export const CorridaOrderByRelevanceFieldEnum = {
@@ -635,14 +643,15 @@ export const CorridaOrderByRelevanceFieldEnum = {
 export type CorridaOrderByRelevanceFieldEnum = (typeof CorridaOrderByRelevanceFieldEnum)[keyof typeof CorridaOrderByRelevanceFieldEnum]
 
 
-export const IdempoteciaOrderByRelevanceFieldEnum = {
+export const IdempotencyKeyOrderByRelevanceFieldEnum = {
   id: 'id',
-  chave: 'chave',
-  usuarioId: 'usuarioId',
-  requestHash: 'requestHash'
+  key: 'key',
+  userId: 'userId',
+  requestHash: 'requestHash',
+  corridaId: 'corridaId'
 } as const
 
-export type IdempoteciaOrderByRelevanceFieldEnum = (typeof IdempoteciaOrderByRelevanceFieldEnum)[keyof typeof IdempoteciaOrderByRelevanceFieldEnum]
+export type IdempotencyKeyOrderByRelevanceFieldEnum = (typeof IdempotencyKeyOrderByRelevanceFieldEnum)[keyof typeof IdempotencyKeyOrderByRelevanceFieldEnum]
 
 
 
@@ -837,7 +846,7 @@ export interface PrismaClientOptionsWithAdapter extends PrismaClientBaseOptions 
 export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaClientOptionsWithAdapter
 export type GlobalOmitConfig = {
   corrida?: Prisma.CorridaOmit
-  idempotecia?: Prisma.IdempoteciaOmit
+  idempotencyKey?: Prisma.IdempotencyKeyOmit
 }
 
 /* Types for Logging */

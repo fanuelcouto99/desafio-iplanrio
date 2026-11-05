@@ -18,7 +18,7 @@ enum Status {
 model Corrida {
   id           String   @id @default(uuid())
   passageiroId String
-  motoristaId  String
+  motoristaId  String?
   origem       String
   destino      String
   status       Status   @default(SOLICITADA)
@@ -30,14 +30,15 @@ model Corrida {
   @@map("corridas")
 }
 
-model Idempotecia {
+model IdempotencyKey {
   id          String   @id @default(uuid())
-  chave       String
-  usuarioId   String
+  key         String
+  userId      String
   requestHash String
+  corridaId   String
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
 
-  @@index([chave, usuarioId])
-  @@map("idempotecia")
+  @@unique([userId, key])
+  @@index([userId, key])
+  @@map("idempotency_keys")
 }

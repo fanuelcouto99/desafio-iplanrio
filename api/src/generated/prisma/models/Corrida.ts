@@ -206,7 +206,7 @@ export type CorridaGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 export type CorridaGroupByOutputType = {
   id: string
   passageiroId: string
-  motoristaId: string
+  motoristaId: string | null
   origem: string
   destino: string
   status: $Enums.Status
@@ -241,7 +241,7 @@ export type CorridaWhereInput = {
   NOT?: Prisma.CorridaWhereInput | Prisma.CorridaWhereInput[]
   id?: Prisma.StringFilter<"Corrida"> | string
   passageiroId?: Prisma.StringFilter<"Corrida"> | string
-  motoristaId?: Prisma.StringFilter<"Corrida"> | string
+  motoristaId?: Prisma.StringNullableFilter<"Corrida"> | string | null
   origem?: Prisma.StringFilter<"Corrida"> | string
   destino?: Prisma.StringFilter<"Corrida"> | string
   status?: Prisma.EnumStatusFilter<"Corrida"> | $Enums.Status
@@ -253,7 +253,7 @@ export type CorridaWhereInput = {
 export type CorridaOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   passageiroId?: Prisma.SortOrder
-  motoristaId?: Prisma.SortOrder
+  motoristaId?: Prisma.SortOrderInput | Prisma.SortOrder
   origem?: Prisma.SortOrder
   destino?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -269,7 +269,7 @@ export type CorridaWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.CorridaWhereInput[]
   NOT?: Prisma.CorridaWhereInput | Prisma.CorridaWhereInput[]
   passageiroId?: Prisma.StringFilter<"Corrida"> | string
-  motoristaId?: Prisma.StringFilter<"Corrida"> | string
+  motoristaId?: Prisma.StringNullableFilter<"Corrida"> | string | null
   origem?: Prisma.StringFilter<"Corrida"> | string
   destino?: Prisma.StringFilter<"Corrida"> | string
   status?: Prisma.EnumStatusFilter<"Corrida"> | $Enums.Status
@@ -281,7 +281,7 @@ export type CorridaWhereUniqueInput = Prisma.AtLeast<{
 export type CorridaOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   passageiroId?: Prisma.SortOrder
-  motoristaId?: Prisma.SortOrder
+  motoristaId?: Prisma.SortOrderInput | Prisma.SortOrder
   origem?: Prisma.SortOrder
   destino?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -301,7 +301,7 @@ export type CorridaScalarWhereWithAggregatesInput = {
   NOT?: Prisma.CorridaScalarWhereWithAggregatesInput | Prisma.CorridaScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Corrida"> | string
   passageiroId?: Prisma.StringWithAggregatesFilter<"Corrida"> | string
-  motoristaId?: Prisma.StringWithAggregatesFilter<"Corrida"> | string
+  motoristaId?: Prisma.StringNullableWithAggregatesFilter<"Corrida"> | string | null
   origem?: Prisma.StringWithAggregatesFilter<"Corrida"> | string
   destino?: Prisma.StringWithAggregatesFilter<"Corrida"> | string
   status?: Prisma.EnumStatusWithAggregatesFilter<"Corrida"> | $Enums.Status
@@ -313,7 +313,7 @@ export type CorridaScalarWhereWithAggregatesInput = {
 export type CorridaCreateInput = {
   id?: string
   passageiroId: string
-  motoristaId: string
+  motoristaId?: string | null
   origem: string
   destino: string
   status?: $Enums.Status
@@ -325,7 +325,7 @@ export type CorridaCreateInput = {
 export type CorridaUncheckedCreateInput = {
   id?: string
   passageiroId: string
-  motoristaId: string
+  motoristaId?: string | null
   origem: string
   destino: string
   status?: $Enums.Status
@@ -337,7 +337,7 @@ export type CorridaUncheckedCreateInput = {
 export type CorridaUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   passageiroId?: Prisma.StringFieldUpdateOperationsInput | string
-  motoristaId?: Prisma.StringFieldUpdateOperationsInput | string
+  motoristaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   origem?: Prisma.StringFieldUpdateOperationsInput | string
   destino?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
@@ -349,7 +349,7 @@ export type CorridaUpdateInput = {
 export type CorridaUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   passageiroId?: Prisma.StringFieldUpdateOperationsInput | string
-  motoristaId?: Prisma.StringFieldUpdateOperationsInput | string
+  motoristaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   origem?: Prisma.StringFieldUpdateOperationsInput | string
   destino?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
@@ -361,7 +361,7 @@ export type CorridaUncheckedUpdateInput = {
 export type CorridaCreateManyInput = {
   id?: string
   passageiroId: string
-  motoristaId: string
+  motoristaId?: string | null
   origem: string
   destino: string
   status?: $Enums.Status
@@ -373,7 +373,7 @@ export type CorridaCreateManyInput = {
 export type CorridaUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   passageiroId?: Prisma.StringFieldUpdateOperationsInput | string
-  motoristaId?: Prisma.StringFieldUpdateOperationsInput | string
+  motoristaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   origem?: Prisma.StringFieldUpdateOperationsInput | string
   destino?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
@@ -385,7 +385,7 @@ export type CorridaUpdateManyMutationInput = {
 export type CorridaUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   passageiroId?: Prisma.StringFieldUpdateOperationsInput | string
-  motoristaId?: Prisma.StringFieldUpdateOperationsInput | string
+  motoristaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   origem?: Prisma.StringFieldUpdateOperationsInput | string
   destino?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
@@ -448,6 +448,10 @@ export type StringFieldUpdateOperationsInput = {
   set?: string
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type EnumStatusFieldUpdateOperationsInput = {
   set?: $Enums.Status
 }
@@ -500,7 +504,7 @@ export type $CorridaPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     passageiroId: string
-    motoristaId: string
+    motoristaId: string | null
     origem: string
     destino: string
     status: $Enums.Status

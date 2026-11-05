@@ -52,7 +52,7 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   Corrida: 'Corrida',
-  Idempotecia: 'Idempotecia'
+  IdempotencyKey: 'IdempotencyKey'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -86,16 +86,16 @@ export const CorridaScalarFieldEnum = {
 export type CorridaScalarFieldEnum = (typeof CorridaScalarFieldEnum)[keyof typeof CorridaScalarFieldEnum]
 
 
-export const IdempoteciaScalarFieldEnum = {
+export const IdempotencyKeyScalarFieldEnum = {
   id: 'id',
-  chave: 'chave',
-  usuarioId: 'usuarioId',
+  key: 'key',
+  userId: 'userId',
   requestHash: 'requestHash',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  corridaId: 'corridaId',
+  createdAt: 'createdAt'
 } as const
 
-export type IdempoteciaScalarFieldEnum = (typeof IdempoteciaScalarFieldEnum)[keyof typeof IdempoteciaScalarFieldEnum]
+export type IdempotencyKeyScalarFieldEnum = (typeof IdempotencyKeyScalarFieldEnum)[keyof typeof IdempotencyKeyScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -104,6 +104,14 @@ export const SortOrder = {
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
 export const CorridaOrderByRelevanceFieldEnum = {
@@ -117,12 +125,13 @@ export const CorridaOrderByRelevanceFieldEnum = {
 export type CorridaOrderByRelevanceFieldEnum = (typeof CorridaOrderByRelevanceFieldEnum)[keyof typeof CorridaOrderByRelevanceFieldEnum]
 
 
-export const IdempoteciaOrderByRelevanceFieldEnum = {
+export const IdempotencyKeyOrderByRelevanceFieldEnum = {
   id: 'id',
-  chave: 'chave',
-  usuarioId: 'usuarioId',
-  requestHash: 'requestHash'
+  key: 'key',
+  userId: 'userId',
+  requestHash: 'requestHash',
+  corridaId: 'corridaId'
 } as const
 
-export type IdempoteciaOrderByRelevanceFieldEnum = (typeof IdempoteciaOrderByRelevanceFieldEnum)[keyof typeof IdempoteciaOrderByRelevanceFieldEnum]
+export type IdempotencyKeyOrderByRelevanceFieldEnum = (typeof IdempotencyKeyOrderByRelevanceFieldEnum)[keyof typeof IdempotencyKeyOrderByRelevanceFieldEnum]
 
