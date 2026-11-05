@@ -17,6 +17,10 @@
 
 - 10:11: Ao subir a API apareceu `getaddrinfo ENOTFOUND rabbitmq`. A API rodava no meu terminal, fora do Docker, mas o .env usava o nome do serviço (rabbitmq), que só existe dentro da rede do compose. Troquei para localhost no api/.env, e o .env.example continua com os nomes de serviço para quando a API rodar no contêiner.
 
+- 10:35: Ao iniciar a configuração para criar a corrida, percebi que deixei como obrigatório o campo de motoristaId no banco, porém a corrida criada ainda não tem motorista. Corrigi para deixar como null até o motorista fazer o aceite da corrida
+
+- 11:55: Realizei os teste solicitados no desafio manualmente via terminal, todos funcionando conforme pedido, resultados serão colocados no README.
+
 
 
 
